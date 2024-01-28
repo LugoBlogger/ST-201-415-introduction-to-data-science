@@ -4,8 +4,8 @@ Dosen pengampu: **Henokh Lugo Hariyanto**; **Diana Nurlaily**
 Asisten mata kuliah: **Ukthi Nurul Isnaniah (16211028)**
 
 **Tujuan**:
-- Mampu 
-- Mampu 
+- Mampu melakukan pembacaan data menggunakan Python
+- Mampu melakukan visualisasi _boxplot_, _histogram_, dan _scatterplot_ dengan _matplotlib_
 
 > Tips belajar bahasa pemrograman adalah mengetik ulang perintah yang kita
 > temukan di buku ataupun di internet, lalu kita ubah-ubah untuk menguji 
@@ -16,7 +16,7 @@ Asisten mata kuliah: **Ukthi Nurul Isnaniah (16211028)**
 
 ## 
 
-## Tugas (Exercise 01)
+## Tugas (Exercise 02)
 > Laporan harus ditulis dan dikumpulkan dalam bentuk berkas _markdown_ 
 > (berekstensi `.md`). Apabila laporan memuat lebih dari satu beras, misal
 > memuat gambar `.png` atau `.jpg`, maka berkas disatukan menjadi berkas 

@@ -4,8 +4,8 @@ Dosen pengampu: **Henokh Lugo Hariyanto**; **Diana Nurlaily**
 Asisten mata kuliah: **Ukthi Nurul Isnaniah (16211028)**
 
 **Tujuan**:
-- Mampu 
-- Mampu 
+- Mampu melakukan pembacaan data _time series_ data saham tertentu
+- Mampu melakukan estimasi plot untuk _support_ dan _resistance lines_
 
 > Tips belajar bahasa pemrograman adalah mengetik ulang perintah yang kita
 > temukan di buku ataupun di internet, lalu kita ubah-ubah untuk menguji 
@@ -16,23 +16,11 @@ Asisten mata kuliah: **Ukthi Nurul Isnaniah (16211028)**
 
 ## 
 
-## Tugas (Exercise 01)
-> Laporan harus ditulis dan dikumpulkan dalam bentuk berkas _markdown_ 
-> (berekstensi `.md`). Apabila laporan memuat lebih dari satu beras, misal
-> memuat gambar `.png` atau `.jpg`, maka berkas disatukan menjadi berkas 
-> `.zip`. **PASTIKAN** berkas `.md` sudah dilakukan _preview_, sehingga kod
-> `markdown` bisa di-_preview_ dengan benar di VSCode. Format penamaan file: 
-> `NIM_NAMA.md` atau `NIM_NAMA.zip`  (boleh nama lengkap atau nama panggilan).
->
-> **Contoh format laporan atau jawaban (`NIM_NAMA.md`)**
-> Nama: [NAMA LENGKAP]
-> NIM: [NIM]
-> 1. (Jawaban nomor 1)
-> 2. (Jawaban nomor 2)
+## Self-exercise  
 
-1. [30 poin]
+1. 
 
-2. [70 poin]
+2.
 
 
 
