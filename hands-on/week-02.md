@@ -164,9 +164,112 @@ dan silahkan untuk memulai pengetikan kode Python.
 Pada tutorial berikut, kita akan melakukan pembacaan data Gini rasio,
 lalu melakukan plotting sederhana
 
-Ikut langkah-langkah berikut dari awal sampai akhir:
+Ikut langkah-langkah berikut dari awal sampai akhir. Kita juga dapat
+menggunakan Jupyter Notebook yang sudah disediakan disini [week-02.ipynb](../jupyter-notebooks/week-02.ipynb)
+
+1. Buka program VSCode dan buat folder baru `hands-on-tutorial`,
+   dan sub-folder `week-02`
+
+2. Buat file Jupyter Notebook di dalam subfolder `week-02` dan beri nama
+   `week-02.ipynb`
+
+3. Pilih kernel (environment `base`) di pojok kanan atas VSCode.
+
+4. Ketik perintah berikut untuk memuat module: `numpy`, `pandas`, dan
+   `matplotlib` ke dalam berkas Jupyter notebook `week-02.ipynb`
+   ```py
+   import numpy as np 
+   import pandas as pd
+   import matplotlib.pyplot as plt
+   ```
 
 ### Pembacaan data `.csv`
+
+5. Pertama kita _load_ data `.csv` menggunakan module `pandas` dengan perintah 
+   berikut:
+   ```py
+   df = pd.read_csv("../datasets/gini_rasio_kaltim.csv")      
+   ```
+
+   Data yang kita _load_ di atas adalah data Gini rasio untuk provinsi Kalimantan
+   Timur yang didapatkan dari [Badan Pusat Statistik](https://www.bps.go.id/id/statistics-table/2/OTgjMg==/gini-rasio--maret-2023.html)
+
+
+### Menghitung nilai rata-rata
+
+6. Berikutnya kita hitung nilai rata-rata Gini rasio dari tahun 2009 hingga 
+   2023 untuk provinsi Kalimantan Timur. Perhitungan rata-rata dapat
+   dilakukan dengan bantuan fungsi `np.mean()`. Bagian kolom `gini_ratio`
+   dapat kita akses dengan perintah `df["gini_ratio"]`
+
+   ```py
+   gini_ratio_avg = np.mean(df["gini_ratio"])
+   ```
+
+### Membuat plot _time series_ 
+
+7. Kode program untuk membuat plot cukup panjang karena banyak 
+   _styling_ yang harus kita terapkan. Namun sebelumnya kita ketik 
+   terlebih dahulu perintah berikut, dan kemudian akan dijelaskan 
+   tiap baris dari setiap perintah yang telah dituliskan 
+
+   ```py
+   fig, ax = plt.subplots(figsize=(8, 4))
+
+   ax.plot(df["year"], df["gini_ratio"], marker="o", markersize=8, 
+         markerfacecolor="w", markeredgewidth=2, linewidth=2)
+   ax.axhline(y=gini_ratio_avg, color="r", alpha=0.4)
+
+   ax.set_title("Gini ratio of Balikpapan")
+   ax.grid("on")
+   ax.set_xlabel("Year")
+   ax.set_ylabel("Gini ratio")
+   plt.show(fig)
+   ```
+
+   Berikut penjelasan kode program di atas:  
+   1. ```fig, ax = plt.subplots(figsize=(8, 4)) ```  
+      Perintah ini digunakan untuk meng-inisiasi/membuat object figure
+      dan axis kosong yang memiliki ukuran `figsize=(width, height)`
+   
+   2. `ax.plot()`   
+      Merupakan perintah untuk membuat plot berbentuk garis.
+      Dua argument pertama merupakan data untuk koordinat-x dan kordinat-y.
+      Pada fungsi ini terlihat terdapat setting untuk jenis marker 
+      (`marker='o` dipilih marker berbentuk circle); ukuran marker
+      (`markersize=8`); warna isian marker (`markerfacecolor="w"` dipilih 
+      warna putih/"white"/"w"); tebal garis tepi di marker 
+      (`markeredgewidth=2`); tebal garis penghubung antar koordinat
+      (`linewidth=2`)
+
+   3. `ax.axhline()`   
+      Merupakan perintah untuk membuat garis horizontal disepanjang 
+      bentangan axis. Argument pertama merupakan posisi vertikal
+      dari garis horizontal tersebut. Disini kita atur supaya memiliki
+      nilai rata-rata Gini rasio. Beberapa pengaturan seperti `color="r"`
+      dan `alpha=0.4` digunakan untuk mengatur warna dari garis tersebut
+      dan tingkat transparansi.
+
+   4. `ax.set_title()`: untuk mengatur judul dari plot
+
+   5. `ax.grid("on")`: untuk memunculkan garis _grid_ atau tidak.
+      Disini kita atur agar muncul dengan nilai `on` .
+
+   6. `ax.set_xlabel()` dan `ax.set_ylabel()`: digunakan untuk
+      memberikan penamaan label di sumbu-x dan sumbu-y.
+
+   7. `plt.show(fig)`: untuk menampilkan pada _cell output_ di Jupyter Notebook.
+      
+   Jika kita lihat dengan seksama, untuk menggambar plot dengan matplotlib
+   memiliki struktur sebagai berikut:
+   - Inisiasi objek `fig` dan `ax`
+   - Lalu isi berbagai macam plot pada objek `ax` menggunakan berbagai
+     macam methods/functions yang bisa diakses dengan `.` seperti `.plot()`
+     `.axhline()`. Jika kita lihat pada dokumentasi ada banyak 
+     jenis plot yang disediakan oleh matplotlib
+   - Setelah memasukan data ke dalam axis langka berikutnya adalah
+     melakukan pengaturan label, gridlines, judul plot, dsb.
+   - Terakhir objek `fig` kita tamplikan dengan perintah `plt.show(fig)`
 
 
 ## Tutorial singkat Markdown
@@ -192,7 +295,7 @@ Lihat `markdown_template.md` di [link berikut](../markdown-template.md).
 > `markdown` bisa di-_preview_ dengan benar di VSCode. Format penamaan file: 
 > `NIM_NAMA.md` atau `NIM_NAMA.zip`  (boleh nama lengkap atau nama panggilan).
 >
-> **Contoh format laporan atau jawaban (`NIM_NAMA.md`)**   
+> **Contoh format jawaban (`NIM_NAMA.md`)**   
 > Nama: [NAMA LENGKAP]
 > NIM: [NIM]
 > 1. (Jawaban nomor 1)
