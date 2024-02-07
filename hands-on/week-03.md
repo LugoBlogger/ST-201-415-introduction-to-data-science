@@ -367,10 +367,73 @@ Sejarah dan pengaruh scatterplot terhadap perkembangan sains dapat dibaca
 pada sumber berikut: [(Friendly and Denis, 2005)](http://euclid.psych.yorku.ca/datavis.ca/papers/friendly-scat.pdf) 
 
 Pada bagian terakhir ini, kita akan membuat scatterplot untuk kenaikan
-atau penurunan harga saham di tahun 2023 dengan melihat pengaruh
+atau penurunan harga saham di tahun 2023 dengan melihat pengaruhnya dari
+kenaikan dan penurunan dari harga saham yang lainnya.
 
 Berikut adalah tahapan untuk membuat plotting sederhana scatterplot
 
+1. Pertama buat berkas _jupyter notebook_, dan tuliskan tiga baris
+   perintah berikut untuk _load module_ `numpy`, `pandas`, dan `matplotlib`
+   serta pengaturan font dan transparansi garis grid
+   ```py
+   import numpy as np
+   import pandas as pd
+   import matplotlib.pyplot as plt
+   ```
+
+   ```py
+   plt.rcParams.update(plt.rcParamsDefault)
+   plt.rcParams.update({
+      'font.size': 14,
+      'grid.alpha': 0.25}) 
+   ```
+
+2. Selanjutnya, kita melakukan pembacaan dua berkas `.csv` yang
+   memuat harga saham PT Bank Rakyat Indonesia Tbk., dan
+   PT. Telekomunikasi indonesia Tbk. Ganti `relative_path_to_datasets`
+   dengan path `datasets` yang benar.
+   ```py
+   path = "relative_path_to_dataset/"   # do not forget to put "/" at the end of string path
+   df_bri = pd.read_csv(path+"BBRI.JK-2023.csv")
+   df_bri_low = df_bri["Low"].to_numpy()
+   first_diff_bri_low = np.diff(df_bri_low, n=1)
+   first_diff_bri_low[:10], len(first_diff_bri_low)
+   ```
+
+   ```py
+   df_telkom = pd.read_csv(path+"TLKM.JK-2023.csv")
+   df_telkom_low = df_telkom["Low"].to_numpy()
+   df_telkom_low[:10], len(df_telkom_low)
+   first_diff_telkom_low = np.diff(df_telkom_low, n=1)
+   first_diff_telkom_low[:10], len(first_diff_telkom_low)
+   ```
+
+   Pada dua cell di atas, kita akan mendapatkan fakta bahwa `first_diff_bri_low`
+   memiliki jumlah element yang berbeda dengan `first_diff_telkom_low`.
+   Agar kedua data tersebut dapat dilakukan plotting, maka
+   diambil jumlah elemen terkecil sebagai indeks maksimum untuk
+   mengakses `first_diff_` yang lain.
+
+
+3. Terakhir adalah menggambar pasangan data tersebut
+   ```py
+   fig, ax = plt.subplots(figsize=(4, 4))
+
+   min_length = min(len(first_diff_bri_low), len(first_diff_telkom_low))
+   ax.plot(first_diff_bri_low[:min_length], first_diff_telkom_low[:min_length], 'o', 
+         markerfacecolor="tab:blue", alpha=0.5)
+
+   ax.set_xlabel("change BBRI (idr)")
+   ax.set_ylabel("change TLKM (idr)")
+   ax.grid("on")
+
+   plt.show(fig)
+   ```
+
+Jika langkah-langkah di atas dijalankan dengan benar, maka akan 
+didapatkan plotting scatterplot sebagai berikut
+
+<img src="../img-resources/scatterplot-bbri-tlkm-2023.png" width=400>
 
 
 ## Tugas (Exercise 02)
