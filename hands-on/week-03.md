@@ -372,7 +372,8 @@ kenaikan dan penurunan dari harga saham yang lainnya.
 
 Berikut adalah tahapan untuk membuat plotting sederhana scatterplot
 
-1. Pertama buat berkas _jupyter notebook_, dan tuliskan tiga baris
+1. Pertama buat berkas _jupyter notebook_ bernama `scatterplot-bbri-tlkm.ipynb`,
+   dan tuliskan tiga baris
    perintah berikut untuk _load module_ `numpy`, `pandas`, dan `matplotlib`
    serta pengaturan font dan transparansi garis grid
    ```py
@@ -390,7 +391,7 @@ Berikut adalah tahapan untuk membuat plotting sederhana scatterplot
 
 2. Selanjutnya, kita melakukan pembacaan dua berkas `.csv` yang
    memuat harga saham PT Bank Rakyat Indonesia Tbk., dan
-   PT. Telekomunikasi indonesia Tbk. Ganti `relative_path_to_datasets`
+   PT. Telekomunikasi Indonesia Tbk. Ganti `relative_path_to_datasets`
    dengan path `datasets` yang benar.
    ```py
    path = "relative_path_to_dataset/"   # do not forget to put "/" at the end of string path

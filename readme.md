@@ -6,7 +6,7 @@ This tutorial provides with the following topics:
 - Introduction to Python with specific reviews for data science
 - Basic usage of numpy, matplotlib, and pandas
 - Visualization with matplotlib for boxplot, histogram, and scatterplot
-- Time series dataset in stock prices; resistence and support lines
+- More robust and efficient regression with resistant line
 - Data smoothing algorithms
 - Exploratory techniques with median polish
 - Visualizing count data regressions using rootogram
