@@ -243,7 +243,7 @@ kita menggunakan contoh data yang diberikan oleh [(Lea 1965)](https://doi.org/10
    Jika langkah di atas dijalankan dengan benar maka akan didapatkan 
    hasil sebagai berikut
 
-   <img src="../img-resources/resistant-line-median-each-batch.png" width=300>
+   ![](../img-resources/resistant-line-median-each-batch.png) 
 
    Median setiap batch disimpan dalam bentuk matriks berukuran $2 \times 3$
    dengan masing-masing menunjukkan koordinat x dan y berturut-turut
@@ -255,15 +255,9 @@ kita menggunakan contoh data yang diberikan oleh [(Lea 1965)](https://doi.org/10
    _intercept_ (titik potong dengan sumbu-y) $a$ dari _resistant line_
    $y = a + b\,x$. 
    Kedua besaran tersebut dapat dihitung dengan menggunakan rumus berikut
-   $$
-      b = \frac{y_r - y_\ell}{x_r - x_\ell}
-   $$
+   $$b = \frac{y_r - y_\ell}{x_r - x_\ell}$$
 
-   $$
-      a = \frac{1}{3}\big[
-            (y_\ell - b\,x_\ell) + (y_m - b\,x_m) + (y_r - b\,x_r) 
-         \big]
-   $$
+   $$a = \frac{1}{3}\big[(y_\ell - b\,x_\ell) + (y_m - b\,x_m) + (y_r - b\,x_r) \big] $$
 
    Rumus di atas dapat diubah dalam kode Python sebagai berikut
    ```py
@@ -275,17 +269,14 @@ kita menggunakan contoh data yang diberikan oleh [(Lea 1965)](https://doi.org/10
    Jika langkah di atas dijalankan dengan benar, maka akan didapatkan 
    hasil sebagai berikut:
 
-   <img src="../img-resources/resistant-line-slope-intercept.png" width=400>
+   ![](../img-resources/resistant-line-slope-intercept.png)
 
 ### Perhitungan residual, $y - y_\textrm{resistant}$
 
 10. Selanjut kita hitung residual, yaitu hasil dari pengurangan
     koordinat y dari data dengan nilai $y$ hasil estimasi _resistant line_.
     Secara umum dapat dirumuskan dalam bentuk
-    $$
-      (x_i^\textrm{res}, y_i^\textrm{res})
-         =  \big(x_i, \,\,\underbrace{y_i - (a + b x_i)}_{y - y_\textrm{resistant}}\big)
-    $$
+    $$(x_i^\textrm{res}, y_i^\textrm{res}) =  \big(x_i, \,\,\underbrace{y_i - (a + b x_i)}_{y - y_\textrm{resistant}}\big)$$
     Implementasi perhitungan residual ke dalam kode Python dapat dilakukan
     sebagai berikut:
     ```py
@@ -311,27 +302,18 @@ kita menggunakan contoh data yang diberikan oleh [(Lea 1965)](https://doi.org/10
     Namun untuk koordinat y residual, kita perlu menghitung
     nilai baru yaitu `y: v['y'] - (intercept_a + slope_b*np.array(v['x']))`
 
-Jika langkah di atas dijalankan dengan benar, maka akan didapatkan hasil
+    Jika langkah di atas dijalankan dengan benar, maka akan didapatkan hasil
 
-<img src="../img-resources/resistant-residual-batches.png" width=500>
+    <img src="../img-resources/resistant-residual-batches.png" width=500>
 
 ### Perhitungan _slope_ dan _intercept_ data residual
 
 11. Sama seperti langkah pada perhitungan _slope_ dan _intercept_ untuk
     data awal (sebelum didapatkan residual), kita menggunakan rumus 
     berikut (rumus tetap sama hanya ditambahkan superscript _res_)
-   $$
-      b^\textrm{res} = \frac{y_r^\textrm{res} - y_\ell^\textrm{res}}{
-         x_r^\textrm{res} - x_\ell^\textrm{res}}
-   $$
+    $$ b^\textrm{res} = \frac{y_r^\textrm{res} - y_\ell^\textrm{res}}{ x_r^\textrm{res} - x_\ell^\textrm{res}} $$
 
-   $$
-      a^\textrm{res} = \frac{1}{3}\big[
-            (y_\ell^\textrm{res} - b\,x_\ell^\textrm{res}) 
-            + (y_m^\textrm{res} - b\,x_m^\textrm{res}) 
-            + (y_r^\textrm{res} - b\,x_r^\textrm{res}) 
-         \big]
-   $$
+    $$ a^\textrm{res} = \frac{1}{3}\big[ (y_\ell^\textrm{res} - b\,x_\ell^\textrm{res}) + (y_m^\textrm{res} - b\,x_m^\textrm{res}) + (y_r^\textrm{res} - b\,x_r^\textrm{res}) \big] $$
 
    Sebelum perhitungan _slope_ dan _intercept_ tentu kita memerlukan 
    nilai median di setiap _batch_ dalam data residual. Sehingga implementasi
@@ -351,11 +333,11 @@ Jika langkah di atas dijalankan dengan benar, maka akan didapatkan hasil
    residual_slope_b, residual_intercept_a
    ```
 
-Jika langkah di atas dijalankan dengan benar, maka akan ditampilkan dua
-hasil berikut untuk median residual dan pasangan (_slope_, _intercept_)
-untuk residual
+   Jika langkah di atas dijalankan dengan benar, maka akan ditampilkan dua
+   hasil berikut untuk median residual dan pasangan (_slope_, _intercept_)
+   untuk residual
 
-<img src="../img-resources/resistant-line-median-residual-batch-slope-intercept.png" width=600>
+   <img src="../img-resources/resistant-line-median-residual-batch-slope-intercept.png" width=600>
 
 ### Menyatukan langkah perhitungan _slope_ dan _intercept_ ke dalam fungsi 
 12. Semua langkah-langkah yang telah kita lakukan dapat kita rangkum
@@ -428,21 +410,21 @@ untuk residual
     - `reg_line` - merupakan _slope_ dan _intercept_ untuk metode OLS 
       (_Ordinary Least Square_). Boleh diisi atau tidak
 
-   Berikut kode Python yang harus kalian ketikan
-   ```py
-   batches_dict = eda_rl.get_resistant_line(temp_data, mort_data, max_iter=100, tol=1e-6)
+    Berikut kode Python yang harus kalian ketikan
+    ```py
+    batches_dict = eda_rl.get_resistant_line(temp_data, mort_data, max_iter=100, tol=1e-6)
 
-   final_slope, final_intercept = batches_dict[batches_dict["iter_max"]]["slope_intercept"]
+    final_slope, final_intercept = batches_dict[batches_dict["iter_max"]]["slope_intercept"]
 
-   A = np.vstack([temp_data, np.ones(len(temp_data))]).T
-   reg_line = np.linalg.lstsq(A, mort_data, rcond=None)[0]
+    A = np.vstack([temp_data, np.ones(len(temp_data))]).T
+    reg_line = np.linalg.lstsq(A, mort_data, rcond=None)[0]
 
-   eda_rl.plot_resistance_line(temp_data, mort_data, final_intercept, final_slope, reg_line)
-   ```
+    eda_rl.plot_resistance_line(temp_data, mort_data, final_intercept, final_slope, reg_line)
+    ```
 
-   Jika langkah-langkah dilakukan dengan benar, maka akan didapatkan gambar berikut
+    Jika langkah-langkah dilakukan dengan benar, maka akan didapatkan gambar berikut
 
-   <img src="../img-resources/resistant-line-plot-data-and-resistance-line.png" width=300>
+    <img src="../img-resources/resistant-line-plot-data-and-resistance-line.png" width=300>
 
 15. Untuk data residual dapat diketikan kode Python berikut yang sama
     dengan di langkah sebelumnya, namun kita perlu mengambil terlebih dahulu
