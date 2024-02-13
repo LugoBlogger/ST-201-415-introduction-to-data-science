@@ -243,7 +243,9 @@ kita menggunakan contoh data yang diberikan oleh [(Lea 1965)](https://doi.org/10
    Jika langkah di atas dijalankan dengan benar maka akan didapatkan 
    hasil sebagai berikut
 
-   ![](../img-resources/resistant-line-median-each-batch.png) 
+   ```
+   [[40.2, 45.7, 49.9], [67.3, 85.15, 100.4]]
+   ```
 
    Median setiap batch disimpan dalam bentuk matriks berukuran $2 \times 3$
    dengan masing-masing menunjukkan koordinat x dan y berturut-turut
@@ -253,7 +255,7 @@ kita menggunakan contoh data yang diberikan oleh [(Lea 1965)](https://doi.org/10
 ### Perhitungan _slope_ dan _intercept_ resistant line
 9. Selanjutnya, kita hitung _slope_ (kemiringan garis), $b$ dan 
    _intercept_ (titik potong dengan sumbu-y) $a$ dari _resistant line_
-   $y = a + b\,x$. 
+   $y = a + b{\,}x$. 
    Kedua besaran tersebut dapat dihitung dengan menggunakan rumus berikut
    $$b = \frac{y_r - y_\ell}{x_r - x_\ell}$$
 
@@ -269,14 +271,16 @@ kita menggunakan contoh data yang diberikan oleh [(Lea 1965)](https://doi.org/10
    Jika langkah di atas dijalankan dengan benar, maka akan didapatkan 
    hasil sebagai berikut:
 
-   ![](../img-resources/resistant-line-slope-intercept.png)
+   ```
+   (3.412371134020621, -70.18333333333344)
+   ```
 
 ### Perhitungan residual, $y - y_\textrm{resistant}$
 
 10. Selanjut kita hitung residual, yaitu hasil dari pengurangan
     koordinat y dari data dengan nilai $y$ hasil estimasi _resistant line_.
     Secara umum dapat dirumuskan dalam bentuk
-    $$(x_i^\textrm{res}, y_i^\textrm{res}) =  \big(x_i, \,\,\underbrace{y_i - (a + b x_i)}_{y - y_\textrm{resistant}}\big)$$
+    $$(x_i^\textrm{res}, y_i^\textrm{res}) =  \big(x_i, {\,\,}y_i - (a + b x_i)\big)$$
     Implementasi perhitungan residual ke dalam kode Python dapat dilakukan
     sebagai berikut:
     ```py
@@ -315,29 +319,29 @@ kita menggunakan contoh data yang diberikan oleh [(Lea 1965)](https://doi.org/10
 
     $$ a^\textrm{res} = \frac{1}{3}\big[ (y_\ell^\textrm{res} - b\,x_\ell^\textrm{res}) + (y_m^\textrm{res} - b\,x_m^\textrm{res}) + (y_r^\textrm{res} - b\,x_r^\textrm{res}) \big] $$
 
-   Sebelum perhitungan _slope_ dan _intercept_ tentu kita memerlukan 
-   nilai median di setiap _batch_ dalam data residual. Sehingga implementasi
-   rumus di atas ke dalam kode Python
-   ```py
-   median_residual_batch = [
-      [np.median(residual_batches[i]['x']) for i in range(3)],
-      [np.median(residual_batches[i]['y']) for i in range(3)]]
+    Sebelum perhitungan _slope_ dan _intercept_ tentu kita memerlukan 
+    nilai median di setiap _batch_ dalam data residual. Sehingga implementasi
+    rumus di atas ke dalam kode Python
+    ```py
+    median_residual_batch = [
+       [np.median(residual_batches[i]['x']) for i in range(3)],
+       [np.median(residual_batches[i]['y']) for i in range(3)]]
 
-   residual_slope_b = (
-      median_residual_batch[1][2] - median_residual_batch[1][0]) \
-      / (median_residual_batch[0][2] - median_residual_batch[0][0])
-   residual_intercept_a = np.mean(
-      [y - residual_slope_b*x for x, y in zip(*median_residual_batch)])
+    residual_slope_b = (
+       median_residual_batch[1][2] - median_residual_batch[1][0]) \
+       / (median_residual_batch[0][2] - median_residual_batch[0][0])
+    residual_intercept_a = np.mean(
+       [y - residual_slope_b*x for x, y in zip(*median_residual_batch)])
 
-   print(median_residual_batch)
-   residual_slope_b, residual_intercept_a
-   ```
+    print(median_residual_batch)
+    residual_slope_b, residual_intercept_a
+    ```
 
-   Jika langkah di atas dijalankan dengan benar, maka akan ditampilkan dua
-   hasil berikut untuk median residual dan pasangan (_slope_, _intercept_)
-   untuk residual
+    Jika langkah di atas dijalankan dengan benar, maka akan ditampilkan dua
+    hasil berikut untuk median residual dan pasangan (_slope_, _intercept_)
+    untuk residual
 
-   <img src="../img-resources/resistant-line-median-residual-batch-slope-intercept.png" width=600>
+    <img src="../img-resources/resistant-line-median-residual-batch-slope-intercept.png" width=600>
 
 ### Menyatukan langkah perhitungan _slope_ dan _intercept_ ke dalam fungsi 
 12. Semua langkah-langkah yang telah kita lakukan dapat kita rangkum
