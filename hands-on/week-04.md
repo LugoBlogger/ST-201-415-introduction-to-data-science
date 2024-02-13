@@ -1,4 +1,4 @@
-# Modul praktikum - Minggu 04 - Support and Resistance Lines 
+# Modul praktikum - Minggu 04 - Resistant Lines 
 
 Dosen pengampu: **Henokh Lugo Hariyanto**; **Diana Nurlaily**   
 Asisten mata kuliah: **Ukthi Nurul Isnaniah (16211028)**
