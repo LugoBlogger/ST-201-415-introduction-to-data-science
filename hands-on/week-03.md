@@ -90,7 +90,7 @@ Berikutnya kita akan membuat `DataFrame` yang dicontohkan di atas.
    ```
 
    Pada baris pertama dibuat tanggal dengan satu hari, sebanyak enam hari
-   (`periods=6`) dimulai dari tanggal 01 Januari 2024 (`"20240101").
+   (`periods=6`) dimulai dari tanggal 01 Januari 2024 (`"20240101"`).
    Dan disimpan dalam variabl `dates`.
 
    Lalu kita bangkitkan _random number generator_ dengan `seed = 24_01_28`
@@ -337,7 +337,7 @@ Pada bagian ini kita akan membuat ulang, plot yang dibuat oleh
 
 4. Langkah terakhir adalah plotting. Ada beberapa pengaturan yang kita  
    lakukan pada visualisasi dengan boxplot:
-   - garis medina diberi warna hitam dengan tebal 1 pt
+   - garis median diberi warna hitam dengan tebal 1 pt
    - warna isian box dalam boxplot di warna putih
    ```py
    medianprops = {"color": 'k', "linewidth": 1}
