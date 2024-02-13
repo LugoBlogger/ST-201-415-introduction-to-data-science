@@ -255,11 +255,11 @@ kita menggunakan contoh data yang diberikan oleh [(Lea 1965)](https://doi.org/10
 ### Perhitungan _slope_ dan _intercept_ resistant line
 9. Selanjutnya, kita hitung _slope_ (kemiringan garis), $b$ dan 
    _intercept_ (titik potong dengan sumbu-y) $a$ dari _resistant line_
-   $y = a + b{\,}x$. 
+   $y = a + bx$. 
    Kedua besaran tersebut dapat dihitung dengan menggunakan rumus berikut
    $$b = \frac{y_r - y_\ell}{x_r - x_\ell}$$
 
-   $$a = \frac{1}{3}\big[(y_\ell - b\,x_\ell) + (y_m - b\,x_m) + (y_r - b\,x_r) \big] $$
+   $$a = \frac{1}{3}\big[(y_\ell - bx_\ell) + (y_m - bx_m) + (y_r - bx_r) \big] $$
 
    Rumus di atas dapat diubah dalam kode Python sebagai berikut
    ```py
@@ -280,7 +280,7 @@ kita menggunakan contoh data yang diberikan oleh [(Lea 1965)](https://doi.org/10
 10. Selanjut kita hitung residual, yaitu hasil dari pengurangan
     koordinat y dari data dengan nilai $y$ hasil estimasi _resistant line_.
     Secara umum dapat dirumuskan dalam bentuk
-    $$(x_i^\textrm{res}, y_i^\textrm{res}) =  \big(x_i, {\,\,}y_i - (a + b x_i)\big)$$
+    $$(x_i^\textrm{res}, y_i^\textrm{res}) =  \big(x_i, y_i - (a + b x_i)\big)$$
     Implementasi perhitungan residual ke dalam kode Python dapat dilakukan
     sebagai berikut:
     ```py
@@ -307,17 +307,25 @@ kita menggunakan contoh data yang diberikan oleh [(Lea 1965)](https://doi.org/10
     nilai baru yaitu `y: v['y'] - (intercept_a + slope_b*np.array(v['x']))`
 
     Jika langkah di atas dijalankan dengan benar, maka akan didapatkan hasil
-
-    <img src="../img-resources/resistant-residual-batches.png" width=500>
+    
+    ```
+    [[array([31.8, 34. , 40.2, 42.1, 42.3]),
+    array([43.5, 44.2, 45.1, 46.3, 47.3, 47.8]),
+    array([48.5, 49.2, 49.9, 50. , 51.3])],
+    [array([28.96993127,  6.66271478,  1.10601375, 11.12250859, -9.05996564]),
+    array([-6.054811  ,  1.05652921,  5.48539519, -8.90945017, -2.62182131,
+             2.07199313]),
+    array([-8.31666667, -1.80532646,  4.40601375, -0.03522337, -2.37130584])]]
+    ```
 
 ### Perhitungan _slope_ dan _intercept_ data residual
 
 11. Sama seperti langkah pada perhitungan _slope_ dan _intercept_ untuk
     data awal (sebelum didapatkan residual), kita menggunakan rumus 
     berikut (rumus tetap sama hanya ditambahkan superscript _res_)
-    $$ b^\textrm{res} = \frac{y_r^\textrm{res} - y_\ell^\textrm{res}}{ x_r^\textrm{res} - x_\ell^\textrm{res}} $$
+    $$b^\textrm{res} = \frac{y_r^\textrm{res} - y_\ell^\textrm{res}}{ x_r^\textrm{res} - x_\ell^\textrm{res}}$$
 
-    $$ a^\textrm{res} = \frac{1}{3}\big[ (y_\ell^\textrm{res} - b\,x_\ell^\textrm{res}) + (y_m^\textrm{res} - b\,x_m^\textrm{res}) + (y_r^\textrm{res} - b\,x_r^\textrm{res}) \big] $$
+    $$a^\textrm{res} = \frac{1}{3}\big[ (y_\ell^\textrm{res} - b x_\ell^\textrm{res}) + (y_m^\textrm{res} - b x_m^\textrm{res}) + (y_r^\textrm{res} - b x_r^\textrm{res}) \big]$$
 
     Sebelum perhitungan _slope_ dan _intercept_ tentu kita memerlukan 
     nilai median di setiap _batch_ dalam data residual. Sehingga implementasi
@@ -340,8 +348,12 @@ kita menggunakan contoh data yang diberikan oleh [(Lea 1965)](https://doi.org/10
     Jika langkah di atas dijalankan dengan benar, maka akan ditampilkan dua
     hasil berikut untuk median residual dan pasangan (_slope_, _intercept_)
     untuk residual
-
-    <img src="../img-resources/resistant-line-median-residual-batch-slope-intercept.png" width=600>
+    
+    ```
+    [[40.2, 45.7, 49.9], [6.662714776632313, -0.7826460481099886, -1.805326460481112]]
+    
+    [-0.8729939419704565, 40.875773195876405]
+    ```
 
 ### Menyatukan langkah perhitungan _slope_ dan _intercept_ ke dalam fungsi 
 12. Semua langkah-langkah yang telah kita lakukan dapat kita rangkum
