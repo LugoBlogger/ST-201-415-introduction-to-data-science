@@ -613,7 +613,7 @@ kita dapatkan beberapa pola
     Jika tahap di atas dijalankan dengan benar, maka akan didapatkan 
     plot sebagai berikut
 
-    <img src="../img-resources/smoothing-rough-rough.png" width=600>
+    <img src="../img-resources/smoothing-rough-rough.png" width=400>
 
     Dari plot $\textrm{ROUGH ROUGH}$ atau `FinalRough` di atas
     dapat diceritakan beberapa pola
