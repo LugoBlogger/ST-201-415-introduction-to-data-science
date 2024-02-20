@@ -320,7 +320,7 @@ proses _splitting_ ke dalam kode Python, namun kalian dapat melihat
 implementasi tersebut dalam kode Python sebagai fungsi `scan_peak_or_valley()`,
 `apply_evs_in_split()` dan `apply_S()` di dalam modul `eda/smoothing.py`.
 
-8. Jalan kode berikut untuk melakukan proses _splitting_ terhadap hasil
+8. Jalankan kode berikut untuk melakukan proses _splitting_ terhadap hasil
    yang didapatkan dari langkah sebelumnya yaitu hasil dari proses _smoothing_
    dengan kode **`3R`**.
 
@@ -333,11 +333,256 @@ implementasi tersebut dalam kode Python sebagai fungsi `scan_peak_or_valley()`,
 
    Kode di atas akan menjalankan dua kali proses _splitting_.
 
-9. Buatlah plot untuk kolom `df["Smooth3RSS"]`
+9. Buatlah plot untuk kolom `df["Smooth3RSS"]` menggunakan kode Python
+   berikut ini
+
+   ```py
+   fig, ax = plt.subplots(figsize=[8, 4])
+
+   ax.plot(df["Game"], df["Attendance"], marker='o', 
+         linestyle="None", markersize=4, zorder=2, label=None)
+   ax.plot(df["Game"], df["Smooth3R"], linestyle="-", 
+         linewidth=1, alpha=1, zorder=3, label="3R") 
+   ax.plot(df["Game"], df["Smooth3RSS"], linestyle="-", 
+         linewidth=1, alpha=1, zorder=3, label="3RSS")
+
+   ax.grid("on")
+   ax.set_xlabel("Game")
+   ax.set_ylabel("Attendance (x 100 people)")
+   ax.set_title("Home attendance for the Atlanta Braves baseball team",
+               fontsize="medium")
+   ax.legend(loc="best")
+
+   plt.show(fig)
+   ```
+
+   Jika langkah di atas dijalankan dengan benar, maka akan didapatkan
+   hasil sebagai berikut
+
+   <table>
+     <tr>
+       <td> <img src="../img-resources/smoothing-code-3R-and-3RSS.png" width=250>
+       <td> <img src="../img-resources/smoothing-code-3R-and-3RSS-plot.png" width=450>
+   </table>
 
 ## _Hanning_
+Jika kalian mencoba untuk menjalankan proses _smoothing_ dengan kode 
+**`3R`** dan **`S`** berkali-kali, maka kalian tidak akan mendapatkan
+perubahan lagi terhadap kurva _smoothing_ yang telah kalian didapatkan
+(silahkan dicoba jika penasaran).
+
+Pada tahap sebelum ini, semua jenis _smoothing_ yang didasarkan pada
+median sudah tidak memiliki pengaruh yang signifikan atau hampir bisa dikatakan
+tidak ada pengaruh _smoothing_ yang didapatkan.
+
+Untuk itu diperlukan proses _smoothing_ yang masih bisa diterapkan untuk data
+seperti contohnya adalah data yang bersifat monotone. Data yang bersifat 
+monotone ini adalah data yang selalu naik (bisa sama) namun tidak pernah turun
+atau lebih kecil dari nilai sebelumnya. Data-data semacam ini tentunya
+apabila dilakukan proses _smoothing_ dengan kode **`3R`** dan _splitting_, pastinya tidak akan berubah.
+
+Disini kita akan menggunakan prosedur _smoothing_ yang dinamakan _hanning_ 
+(berasal dari dari nama seorang ahli klimatologi, [Julius von Hanning](https://www.encyclopedia.com/science/dictionaries-thesauruses-pictures-and-press-releases/hann-julius-ferdinand-von))
+
+Ilustrasi prosedur _hanning_ adalah sebagai berikut
+
+<img src="../img-resources/hanning.png" width=400>
+
+Untuk setiap tiga data berurutan, dilakukan reduksi dengan cara menghitung
+_weighted average_ dengan rumus
+
+$$
+   z_j = \frac{1}{4}y_{j-1} + \frac{1}{2}y_j + \frac{1}{4}y_{j+1}
+$$
+
+$z_j$ adalah hasil dari prosedur _hanning_. Perlu diketahui bahwa
+bobot $(\frac{1}{4}, \frac{1}{2}, \frac{1}{4})$ dapat diganti dengan bobot 
+lain asal total dari bobot tersebut masih bernilai satu. Misal 
+diganti dengan bobot $(\frac{1}{8}, \frac{3}{4}, \frac{1}{8})$.
+Atau bisa juga menggunakan lima buah data sebagai contoh
+
+$$
+   z_j = \frac{1}{12}y_{j-2} + \frac{1}{4} y_{j-1} + \frac{2}{3} y_j
+         + \frac{1}{4}y_{j+1} + \frac{1}{12}y_{j+2}
+$$
+
+Dari ilustrasi di atas, untuk menentukan nilai _smoothing_ untuk _end values_,
+kita hanya cukup meng-_copy_ nilai _end values_ dan melakukan prosedur
+_hanning_ dengan data $(y_{-1}, y_0, y_1)$ untuk menentukan nilai _smoothing_
+$z_0$, dan $(y_{n-1}, y_n, y_{n+1})$ untuk menentukan nilai _smoothing_
+$z_n$.
+
+Implementasi prosedur _hanning_ dengan kode Python hampir sama
+dengan implementasi prosedur _running median of 3_, namun disini kita
+menggunakan _custom function_
+```py
+lambda s: 0.25*s.iloc[0] + 0.5*s.iloc[1] + 0.25*s.iloc[2]
+```
+Silahkan lihat fungsi `apply_H()` di dalam modul `eda/smoothing.py`.
+
+10. Melanjutkan tahap sebelumnya, tentukan hasil _smoothing_ menggunakan
+    prosedur _hanning_ dengan cara memanggil fungsi `apply_H` dengan
+    menggunakan kode Python berikut
+    ```py
+    df["Smooth3RSSH"] = eda_smt.apply_H(df["Smooth3RSS"])
+    df
+    ```
+
+11. Lakukan plotting untuk kolom `df["Smooth3RSSH"]` menggunakan kode Python
+    berikut
+    ```py
+    fig, ax = plt.subplots(figsize=[8, 4])
+
+    ax.plot(df["Game"], df["Attendance"], marker='o', linestyle="None",
+            markersize=4, zorder=2, label=None)
+    ax.plot(df["Game"], df["Smooth3RSS"], linestyle="-", linewidth=1, 
+            alpha=1, zorder=3, label="3RSS")
+    ax.plot(df["Game"], df["Smooth3RSSH"], linestyle="-", linewidth=1, 
+            alpha=1, zorder=3, label="3RSSH")
+
+    ax.grid("on")
+    ax.set_xlabel("Game")
+    ax.set_ylabel("Attendance (x 100 people)")
+    ax.set_title("Home attendance for the Atlanta Braves baseball team",
+                fontsize="medium")
+    ax.legend(loc="best")
+
+    plt.show(fig)
+    ```
+
+    Jika tahap di atas dilakukan dengan benar maka akan didapatkan hasil 
+    sebagai berikut
+
+    <table>
+      <tr>
+       <td> <img src="../img-resources/smoothing-code-3RSS-and-3RSSH.png" width=300>
+       <td> <img src="../img-resources/smoothing-code-3RSS-and-3RSSH-plot.png" width=400>
+    </table>
+
+   Dapat kita lihat dari kurva _smoothing_ dengan kode **`3RSSH`**
+   lebih _smooth_ (ada sedikit alur belokan yang jelas di bagian puncak).
+   Perlu dinginat prosedur _hanning_ ini dilakukan setelah prosedur
+   _smoothing_ yang tidak sensitif dengan _outlier_ telak dilakukan.
+   Jika prosedur _hanning_ ini dilakukan sebelum _smoothing_ yang menggunakan
+   median, bisa dipastikan hasil kurva _smoothing_ akan sangat dipengaruhi
+   dengan ada tidaknya _outlier_.
 
 ## _Reroughing_
+
+Tahapan terakhir dari prosedur _smoothing_ adalah _reroughing_. Sebenarnya
+ini bukan tahapan terakhir untuk prosedur _smoothing_ secara umum, 
+namun adalah tahapan terakhir dalam prosedur _smoothing_ dengan kode 
+**`3RSSH.twice`**
+
+Sepertinya halnya estimasi trend suatu data dengan model yang dapat dirumuskan
+dengan 
+$$
+   \textrm{DATA} = \textrm{FIT} + \textrm{RESIDUAL}
+$$
+maka untuk prosedur _smoothing_, kita memiliki istilah baru (namun maksudnya
+masih sama)
+$$
+   \textrm{DATA} = \textrm{SMOOTH} + \textrm{ROUGH}
+$$
+Jadi _rough_ sendiri adalah _residual_ atau error yang didapatkan setelah
+ditentukan kurva _smoothing_.
+
+Dari nama prosedur _reroughing_, kita dapat memahami bahwa sebenarnya
+prosedur ini adalah melakukan perhitungan ulang _rough_ dengan cara
+melakukan prosedur _smoothing_ ke data _rough_ dengan kode _smoothing_
+yang sama.
+
+Sebagai contoh untuk kasus yang kita lakukan adalah prosedur _smoothing_
+dengan kode **`3RSSH`** yang kita kenakan kepada data awal. Untuk prosedur _reroughing_
+ini kita lakukan prosedur _smoothing_ dengan kode **`3RSSH`** ke data _rough_ 
+(`rough = df["Attendance"] - df["Smooth3RSSH"]`).
+
+Lalu setelah kita mendapatkan kurva _smoothing_ untuk data _rough_, kita 
+tambahkan kurva _smoothing_ tersebut, ke kurva _smoothing_ yang kita
+dapatkan untuk data awal. Secara matematis dapat kita tuliskan sebagai berikut
+
+$$
+\begin{align*}
+  \textrm{DATA} &= \textrm{SMOOTH} + \textrm{ROUGH} \\
+    &= \textrm{SMOOTH} + \left( \textrm{SMOOTHED ROUGH} + \textrm{ROUGH ROUGH} \right) \\
+    &= \left(\textrm{SMOOTH} + \textrm{SMOOTHED ROUGH}\right) + \textrm{ROUGH ROUGH} \\
+    &= \textrm{FINAL SMOOTH} + \textrm{ROUGH ROUGH}
+\end{align*}
+$$
+
+Yang akan kita hitung adalah 
+$$
+   \textrm{FINAL SMOOTH} = \textrm{SMOOTH} + \textrm{SMOOTHED ROUGH}
+$$
+
+Karena kita sudah memiliki semua prosedur _smoothing_, kita hanya
+perlu mengganti awalan data. Sebelumnya kita mengunakan data yang 
+belum dilakukan prosedur _smoothing_ (data awal), untuk prosedur _reroughing_
+ini kita menggunakan data _rough_ dan kita jalankan prosedur _smoothing_
+dengan kode **`3RSSH`**. Karena kita hanya mengulang prosedur yang telah
+dilakukan pada data awal, kita cukup menuliskan dengan kode **`.twice`** 
+yang berarti dilakukan dua kali namun dilakukan pada data _rough_.
+
+Di dalam modul `eda/smoothing.py` sudah didefinisikan prosedur _smoothing_
+untuk kode **`.twice`** namun dengan input arguments data awal, data
+_rough_, dan urutan kode _smoothing_.
+
+12. Lakukan proses _reroughing_ dengan menjalankan kode Python berikut
+    ```py
+    df["Smooth3RSSH.twice"] = eda_smt.apply_twice(
+      df["Attendance"], df["Smooth3RSSH"], seq="3R_S_S_H")
+    df
+    ```
+
+    Pada bagian `seq="3R_S_S_H"` penulisan prosedur _smoothing_ harus 
+    dipisahkan oleh tanda _underscore_ supaya membantu program
+    untuk menentukan urutan prosedur _smoothing_.
+
+13. Jalankan kode Python berikut untuk melakukan plotting kolom
+    `df["Smooth3RSSH.twice"]`
+    ```py
+    fig, ax = plt.subplots(figsize=[8, 4])
+
+    ax.plot(df["Game"], df["Attendance"], marker='o', linestyle="None",
+            markersize=4, zorder=2, label=None)
+    ax.plot(df["Game"], df["Smooth3RSSH"], linestyle="-", linewidth=1, 
+            alpha=1, zorder=3, label="3RSSH")
+    ax.plot(df["Game"], df["Smooth3RSSH.twice"], linestyle="-", linewidth=1, 
+            alpha=1, zorder=3, label="3RSSH.twice")
+
+    ax.grid("on")
+    ax.set_xlabel("Game")
+    ax.set_ylabel("Attendance (x 100 people)")
+    ax.set_title("Home attendance for the Atlanta Braves baseball team",
+                fontsize="medium")
+    ax.legend(loc="best")
+
+    plt.show(fig)
+    ```
+   
+   Jika tahapan di atas dijalankan dengan benar, maka akan didapatkan 
+   hasil sebagai berikut
+
+   <table>
+     <tr>
+      <td> <img src="../img-resources/smoothing-code-3RSSH-and-3RSSHtwice.png" width=300>
+      <td> <img src="../img-resources/smoothing-code-3RSSH-and-3RSSHtwice-plot.png" width=450>
+   </table>
+
+   Jika kita lihat dengan seksama untuk kurva _smoothing_ dengan kode
+   **`3RSSH.twice`**, terdapat perbedaan dengan sebelum proses
+   _reroughing_ yang mana beberapa puncak dan lembah ada yang
+   ditambahkan lagi beberapa _rough_ di puncah atau lembah.
+
+## [Opsional] Prosedur _smooting_ **4253H.twice**
+
+Tahapan di bagian ini tidaklah wajib. Jadi boleh diabaikan.
+
+Didalam modul `eda/smoothing.py` terdapat fungsi untuk prosedur smoothing
+dengan kode **`42`** dan **`5`** yang dinyatakan dengan fungsi
+`apply_42()` dan `apply_5`. Silahkan dicoba menggunakan data yang digunakan
+pada tutorial di atas bagi yang memiliki rasa ingin tahu terkait 
+prosedur _smoothing_ yang lain.
 
 
 ## Tugas (Exercise 03)
