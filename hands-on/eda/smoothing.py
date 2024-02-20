@@ -220,5 +220,9 @@ def apply_twice(data, smooth, seq):
       rough = apply_S(rough)
     elif smoother == "H":
       rough = apply_H(rough)
+    elif smoother == "42":
+      rough = apply_42(rough)
+    elif smoother == "5":
+      rough = apply_5(rough)
 
   return smooth + rough

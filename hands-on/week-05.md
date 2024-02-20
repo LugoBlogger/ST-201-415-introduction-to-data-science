@@ -572,6 +572,64 @@ _rough_, dan urutan kode _smoothing_.
    _reroughing_ yang mana beberapa puncak dan lembah ada yang
    ditambahkan lagi beberapa _rough_ di puncah atau lembah.
 
+## Analisis _smoothed curve_
+
+Dari gambar kurva _smoothing_ yang diperoleh pada langkah sebelumnya 
+kita dapatkan beberapa pola
+- Pengunjung pertandingan _baseball_ mengalami penurunan tiba-tiba
+  di awal musim pertandingan (antara Game 5 sampai 10) setelah euforia
+  sesaat di awal pertandingan sudah mulai berkurang 
+- Namun setelah penurunan itu, jumlah pengunjung perlahan-lahan naik
+  dari Game 10 hingga Game 50.
+- Jumlah pengunjung mencapai puncaknya pada Game 50, kemudian
+  jumlah pengunjung turun drastis hingga menuju bentuk palung di sekitaran
+  Game 60. Ada kemungkinan tim _baseball_ Atlanta Braves sudah mendapatkan
+  poin yang cukup untuk dikatakan sebagai juara, sehingga pertandingan
+  berikutnya sudah tidak menarik lagi.
+- Ada kenaikan jumlah pengunjung sangat drastis di akhir musim. Pada titik
+  ini mungkin para fans Atlanta Braves mulai antusias menanti dimulainya
+  awal musim berikutnya.
+
+14. Kita akan membuat plot $\textrm{ROUGH ROUGH}$ dari data yang kita
+    telah cari $\textrm{FINAL SMOOTH}$-nya. Berikut kode Python untuk 
+    menghasilkan plot $\textrm{ROUGH ROUGH}$
+
+    ```py
+    fig, ax = plt.subplots(figsize=[8, 4])
+
+    df["FinalRough"] = df["Attendance"] - df["Smooth3RSSH.twice"]
+    ax.plot(df["Game"], df["FinalRough"], marker='o', 
+          linestyle="None", markersize=4, zorder=2, label=None)
+
+    ax.grid("on")
+    ax.set_xlabel("Game")
+    ax.set_ylabel("Final Rough (x 100 people)")
+    ax.set_title("Home attendance for the Atlanta Braves baseball team",
+                fontsize="medium")
+
+    plt.show(fig)
+    ```
+
+    Jika tahap di atas dijalankan dengan benar, maka akan didapatkan 
+    plot sebagai berikut
+
+    <img src="../img-resources/smoothing-rough-rough.png" width=600>
+
+    Dari plot $\textrm{ROUGH ROUGH}$ atau `FinalRough` di atas
+    dapat diceritakan beberapa pola
+    - Ada beberapa tanggal (tepatnya di 9 Game)
+      yang memiliki jumlah pengunjung cukup 
+      besar di sekitaran +/- 10,000 pengunjung. Ada kemungkinan
+      alasan ini mengapa jumlah pengunjung sangat tinggi adalah
+      pertandingan mungkin diadakan pada hari libur yaitu Sabtu dan Minggu.
+    - Ada satu tanggal dengan jumlah pengunjung sangat kecil dibandingkan
+      dengan jumlah pengunjung normalnya. Jumlah pengunjung normal
+      adalah nilai kurva _smoothing_. Ada kemungkinan terkait cuaca
+      yang ekstrem sehingga jarang pengunjung yang datang
+    - Tidak ada pola yang cukup menarik dari plot `FinalRough`.
+      Sebagian besar jumlah pengunjung berfluktuasi dari jumlah pengunjung
+      normal di kisaran -50,000 hingga +50,000.
+
 ## [Opsional] Prosedur _smooting_ **4253H.twice**
 
 Tahapan di bagian ini tidaklah wajib. Jadi boleh diabaikan.
