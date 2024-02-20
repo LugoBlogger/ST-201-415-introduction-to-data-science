@@ -1,4 +1,4 @@
-> This is a template to submit your assignment. You can answer in Englih
+> This is a template to submit your assignment. You can answer in English
 > or Bahasa Indonesia
 
 # Template Assignment 01
