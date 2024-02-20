@@ -407,10 +407,8 @@ $$
 $$
 
 Dari ilustrasi di atas, untuk menentukan nilai _smoothing_ untuk _end values_,
-kita hanya cukup meng-_copy_ nilai _end values_ dan melakukan prosedur
-_hanning_ dengan data $(y_{-1}, y_0, y_1)$ untuk menentukan nilai _smoothing_
-$z_0$, dan $(y_{n-1}, y_n, y_{n+1})$ untuk menentukan nilai _smoothing_
-$z_n$.
+kita hanya cukup meng-_copy_ nilai _end values_ menjadi nilai _smoothing_ 
+tanpa perlu mengubah apapun.
 
 Implementasi prosedur _hanning_ dengan kode Python hampir sama
 dengan implementasi prosedur _running median of 3_, namun disini kita

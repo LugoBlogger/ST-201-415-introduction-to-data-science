@@ -167,9 +167,11 @@ def apply_H(data):
     new_data = data.copy().to_list()
   elif type(data) == np.ndarray:
     new_data = data.copy()
-  new_data = [new_data[0], *new_data, new_data[-1]]
-  return (pd.Series(new_data).rolling(window=3, center=True).apply(
-    lambda s: 0.25*s.iloc[0] + 0.5*s.iloc[1] + 0.25*s.iloc[2]).iloc[1:-1]).to_numpy()  
+  # new_data = [new_data[0], *new_data, new_data[-1]]
+  return np.array([new_data[0],
+    *(pd.Series(new_data).rolling(window=3, center=True).apply(
+    lambda s: 0.25*s.iloc[0] + 0.5*s.iloc[1] + 0.25*s.iloc[2]).iloc[1:-1]).to_list(),
+    new_data[-1]])
 
 
 def apply_5(data):
