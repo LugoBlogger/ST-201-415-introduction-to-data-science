@@ -204,8 +204,8 @@ yang terdapat di dalam berkas `eda/smoothing.py`.
    modul `eda/smoothing.py`. Tuliskan kode Python berikut ke cell baru
    di dalam berkas _jupyter notebook_ yang sudah kalian buat
    ```py
-   eda_smt.apply_evs(df["Attendance"].to_list(), smooth3_noEnd.to_list())
-   df
+   smooth3 = eda_smt.apply_evs(df["Attendance"].to_list(), smooth3_noEnd.to_list())
+   smooth3
    ```
 
    Jika tahap di atas dijalankan dengan benar, maka akan didapatkan
