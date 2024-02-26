@@ -528,7 +528,7 @@ _rough_, dan urutan kode _smoothing_.
 12. Lakukan proses _reroughing_ dengan menjalankan kode Python berikut
     ```py
     df["Smooth3RSSH.twice"] = eda_smt.apply_twice(
-      df["Attendance"], df["Smooth3RSSH"], seq="3R_S_S_H")
+      df["Attendance"].to_numpy(), df["Smooth3RSSH"].to_numpy(), seq="3R_S_S_H")
     df
     ```
 
