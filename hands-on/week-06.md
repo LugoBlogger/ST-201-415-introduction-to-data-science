@@ -15,10 +15,42 @@ Asisten mata kuliah: **Ukthi Nurul Isnaniah (16211028)**
 > menggunakan VSCode dan Jupyter Notebook, atau menggunakan Google Collabs.
 
 
-## One-way ANOVA
-
-## Two-way ANOVA
-
 ## Median polish
+
+## Pembacaan data
+
+## Sweep 1
+
+## Sweep 2
+
+## Sweep 3
+
+## Sweep 4
+
+## Iterate (Sweep 3 and 4)
+
+
+## Tugas (Exercise 04)
+> Laporan harus ditulis dan dikumpulkan dalam bentuk berkas _markdown_ 
+> (berekstensi `.md`). Apabila laporan memuat lebih dari satu beras, misal
+> memuat gambar `.png` atau `.jpg`, maka berkas disatukan menjadi berkas 
+> `.zip`. **PASTIKAN** berkas `.md` sudah dilakukan _preview_, sehingga kod
+> `markdown` bisa di-_preview_ dengan benar di VSCode. Format penamaan file: 
+> `NIM_NAMA.md` atau `NIM_NAMA.zip`  (boleh nama lengkap atau nama panggilan).
+>
+> **Contoh format laporan atau jawaban (`NIM_NAMA.md`)**
+> Nama: [NAMA LENGKAP]
+> NIM: [NIM]
+> 1. (Jawaban nomor 1)
+> 2. (Jawaban nomor 2)
+
+1. [30 poin]
+   Apakah mungkin untuk melakukan _median polish_
+   dengan data _multivariate_ lebih dari 3 variables? Jelaskan alasan
+   kalian.
+
+2. [70 poin] 
+   Lakukan proses _median polish_ hingga _Sweep 11_ menggunakan 
+   module `eda/medianpolish.py` untuk data berikut
 
 
