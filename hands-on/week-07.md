@@ -14,7 +14,22 @@ Asisten mata kuliah: **Ukthi Nurul Isnaniah (16211028)**
 > kita pelajari. Setiap potongan kode di bawah dapat dijalankan secara lokal
 > menggunakan VSCode dan Jupyter Notebook, atau menggunakan Google Collabs.
 
+Alasan adanya rootogram masih sama seperti alasan adanya resistant line
+saat kita membutuhkan suatu estimasi trend line yang mampu memberikan
+estimasi yang _robust_ sekalipun terdapat _outliers_.
+
+Rootogram disini berfungsi agar hasil histogram yang kita dapatkan
+tidak terpengaruh oleh fluktuasi yang besar yang sering terjadi pada
+frekuensi data yang besar.
 
 ## Rootogram
+
+Rootogram merupakan gabungan dari kata "square ROOT" dan "histOGRAM".
+Penggambaran histogram secara langsung tidak mampu memberikan visualisasi
+yang _robust_ terhadap adanya _outliers_, untuk itu perlu dilakukan transformasi
+terhadap besaran frekuensi dengan cara menghitung nilai akarnya daripada
+kita hanya melakukan plot histogram dengan nilai frekuensinya.
+
+## Suspended Rootogram
 
 
