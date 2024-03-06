@@ -56,7 +56,7 @@ def plot_stem_leaf(stem_num_full, stem_leaf_dict, y_interval, ax, stem_shift=0.0
   for stem, stem_y_interval in zip(stem_num_full, y_interval):
     ax.text(vert_line_xcoord - stem_shift, stem_y_interval, f"{stem}", ha="right", va="center", 
             fontdict=dict(fontsize=fontsize))
-    if f"{tem}" in stem_leaf_dict:
+    if f"{stem}" in stem_leaf_dict:
       key_stem = f"{stem}"
       ax.text(vert_line_xcoord + leaf_shift, stem_y_interval, f"{' '.join(stem_leaf_dict[key_stem])}",
               ha="left", va="center", fontdict=dict(fontsize=fontsize))

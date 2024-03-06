@@ -12,7 +12,7 @@ Asisten mata kuliah: **Ukthi Nurul Isnaniah (16211028)**
 > pemahaman kita sudah tepat atau belum. Faktor bermain-main dan eskplorasi
 > sangat diperlukan untuk memahami setiap perintah bahasa pemrograman yang
 > kita pelajari. Setiap potongan kode di bawah dapat dijalankan secara lokal
-> menggunakan VSCode dan Jupyter Notebook, atau menggunakan Google Collabs.
+> menggunakan VSCode dan Jupyter Notebook, atau menggunakan Google Colab.
 
 ## Resistant Line
 
