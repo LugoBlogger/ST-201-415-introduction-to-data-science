@@ -214,7 +214,22 @@ dinamakan sebagai _suspended rootogram_.
 
 2. [70 poin] 
    Lakukan visualisasi dengan menggunakan rootogram untuk data banyaknya
-   _satellite_ dari kepiting tapal kuda berikut:
+   _satellite_ dari kepiting tapal kuda yang diberikan di 
+   `datasets/horseshoe-crabs.txt`
+
+   Gunakan distribusi Poisson untuk data `fitted count` dengan 
+   paramater $\lambda$ yang dihitung dari rata-rata banyaknya
+   _satellite_. Serta dilakukan _scaling_ `fitted count`
+   dengan mengalikan dengan panjang data Sebagai petunjuk dapat menggunakan fungsi berikut
+   ```py
+   import scipy.stats as sc_stats
+
+   x_distrib = np.arange(len(tick), dtype=int)
+   lambda_poisson = np.mean(satell_data) 
+   y_distrib = len(satell_data)*sc_stats.poisson.pmf(x_distrib, lambda_poisson)
+   ```
+   Variabel `tick` diperoleh dari kategori jumlah _satellite_,
+   dan `satell_data` adalah kolom `satell` di dalam `datasets/horseshoe-crabs.txt`.
 
    Apa yang dapat kalian ceritakan dari bentuk residual di dalam
    _suspended rootogram_?

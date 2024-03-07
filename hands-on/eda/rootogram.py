@@ -140,7 +140,7 @@ def get_fitted_count(tick, data, is_width_equal=True, with_drr=True):
 
 
 def plot_rootogram(tick, count, fitted_count, ax, xlabel="category",
-              ylabel=r"$\sqrt{count}$", ylim=None, with_residual=True):
+              ylabel=r"$\sqrt{\text{count}}$", ylim=None, with_residual=True):
   residual_curve = np.sqrt(count) - np.sqrt(fitted_count)
   width = tick[1] - tick[0]
   ax.bar(tick, np.sqrt(count), bottom=-residual_curve, 
@@ -166,7 +166,7 @@ def plot_rootogram(tick, count, fitted_count, ax, xlabel="category",
 
 
 def plot_suspended_rootogram(tick, count, fitted_count, ax, xlabel="category",
-                              ylabel=r"$\sqrt{count}$", ylim=None):
+                              ylabel=r"$\sqrt{\text{count}}$", ylim=None):
 
   residual_curve = np.sqrt(count) - np.sqrt(fitted_count)
   width = tick[1] - tick[0]
