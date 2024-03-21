@@ -243,8 +243,46 @@ dan mencoba mengukur seberapa baik model klasifikasi yang kita buat
     [ 0  0  0  0  0  0  0  0 88  0]
     [ 0  0  0  1  0  1  0  0  0 90]]
    ```
+   Maksud dari _confusion matrix_ di atas sebagai berikut:
+   - bagian baris menunjukkan _true label_, atau label sebenarnya dari 
+     _test data_. Dengan label 0 (angka 0) berada pada baris di indeks ke-0
+     hingga label 0 (angka 9) ke bawah.
+   - bagian kolom menunjukkan _predicted label_, atau label yang diprediksi
+     dengan model SVC. Dengan label 0 (angka 0).
+   - angka di dalam setiap elemen menunjukkan jumlah gambar yang mampu diprediksi
+     oleh model SVC. Sebagai contoh element 85 di baris indeks-2 dan kolom 
+     indeks-2. Angka 85 ini menunjukkan ada 85 gambar yang berhasil benar
+     diprediksi sebagai angka 2. Jika kita melihat di baris indeks-0 dan 
+     kolom indeks 2, elemen bernilai 1, menunjukan ada satu gambar diprediksi 
+     sebagai angka 2 namun label yang sebenarnya adalah angka 0.
 
+   Dari hasil _confusion matrix_ di atas terlihat bahwa model klasifikasi SVC
+   cukup baik untuk melakukan setiap predikis di setiap kelas. Hal ini terlihat
+   dari jumlah prediksi benar berada dalam element diagonal dari _confusion
+   matrix_
 
+   Di minggu berikutnya kita akan belajar beberapa metrik (alat ukur) 
+   yang lebih baik yang dapat dihitung dari _confusion matrix_ yaitu
+   _precision_, _recall_, dan F1-score.
+
+### Plot uji coba prediksi model ke _test data_
+8. Kita akan melakukan prediksi untuk beberapa gambar dari _test data_
+   dengan kode berikut
+   ```py
+   fig, axes = plt.subplots(nrows=5, ncols=10, figsize=(14, 10))
+   for ax, image, prediction, label in zip(axes.flatten(), X_test, predicted, y_test):
+      ax.set_axis_off()
+      image = image.reshape(8, 8)
+      ax.imshow(image, cmap=plt.cm.gray_r, interpolation="nearest")
+      ax.set_title(f"Prediction: {prediction}\nTrue: {label}", fontsize="small")
+
+   plt.show(fig)
+   ```
+
+   Jika langkah di jalankan dengan benar maka akan didapatkan gambar sebagai
+   berikut
+
+   <img src="../img-resources/ml-digits-predict.png" width=800>
 
 
 ## Tugas (Exercise 06)
